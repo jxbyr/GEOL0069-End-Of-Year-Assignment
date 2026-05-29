@@ -1,0 +1,97 @@
+{
+    "name": "aral-sea-water-land-2016",
+
+    "port": 5000,
+    "host": "0.0.0.0",
+
+    "images": {
+        "path": {
+            "B02": "images/{id}/B02.tiff",
+            "B03": "images/{id}/B03.tiff",
+            "B04": "images/{id}/B04.tiff",
+            "B08": "images/{id}/B08.tiff",
+            "B11": "images/{id}/B11.tiff"
+        },
+        "shape": [1609, 1766],
+        "thumbnails": "images/{id}/true_color.tiff",
+        "metadata": "images/{id}/metadata.json"
+    },
+
+    "classes": [
+        {
+            "name": "Water",
+            "description": "Open water body — remaining Aral Sea surface. High NDWI (> 0.05). Appears dark blue/black in NIR view.",
+            "colour": [0, 120, 255, 180],
+            "user_colour": [0, 180, 255, 120]
+        },
+        {
+            "name": "Land",
+            "description": "Dry land, exposed lakebed (salt flats / Aralkum Desert), or vegetated areas. Low or negative NDWI. Appears bright in SWIR view.",
+            "colour": [210, 140, 50, 180],
+            "user_colour": [210, 140, 50, 120]
+        }
+    ],
+
+    "views": {
+        "True Colour (RGB)": {
+            "description": "Natural colour composite. B04=Red, B03=Green, B02=Blue. Use for general orientation.",
+            "type": "image",
+            "data": ["$B04.B1", "$B03.B1", "$B02.B1"],
+            "clip": 2
+        },
+        "False Colour (NIR-R-G)": {
+            "description": "B08=Red, B04=Green, B03=Blue. Water appears dark/black. Vegetation appears bright red. Best view for water/land boundary.",
+            "type": "image",
+            "data": ["$B08.B1", "$B04.B1", "$B03.B1"],
+            "clip": 2
+        },
+        "NDWI": {
+            "description": "Normalised Difference Water Index = (B03 - B08) / (B03 + B08). Positive values (bright) = water. Negative values (dark) = land. Primary discriminator for this project.",
+            "type": "image",
+            "data": "($B03.B1 - $B08.B1) / ($B03.B1 + $B08.B1 + 1e-6)",
+            "cmap": "RdYlBu",
+            "vmin": -0.5,
+            "vmax": 0.5
+        },
+        "SWIR (B11)": {
+            "description": "Shortwave Infrared band. Salt flats and bare soil appear very bright. Water appears very dark. Useful for distinguishing dry lakebed from vegetated land.",
+            "type": "image",
+            "data": "$B11.B1",
+            "cmap": "gray",
+            "clip": 2
+        },
+        "SWIR Composite (SWIR-NIR-G)": {
+            "description": "B11=Red, B08=Green, B03=Blue. Salt flats appear magenta/pink. Water is black. Vegetation is green. Ideal for distinguishing salt flat from open land.",
+            "type": "image",
+            "data": ["$B11.B1", "$B08.B1", "$B03.B1"],
+            "clip": 2
+        },
+        "NIR (B08)": {
+            "description": "Near-infrared band alone. Water absorbs NIR strongly — appears near-black. Land and salt flats reflect NIR — appear bright.",
+            "type": "image",
+            "data": "$B08.B1",
+            "cmap": "gray",
+            "clip": 2
+        },
+        "NIR Edges": {
+            "description": "Edge-detected NIR band. Highlights water/land boundaries precisely. Use to check where you should place your class boundary.",
+            "type": "image",
+            "data": "edges($B08.B1)",
+            "cmap": "gray"
+        }
+    },
+
+    "view_groups": {
+        "default": ["True Colour (RGB)", "NDWI", "False Colour (NIR-R-G)"],
+        "water detection": ["NDWI", "NIR (B08)", "NIR Edges"],
+        "land detail": ["SWIR (B11)", "SWIR Composite (SWIR-NIR-G)", "True Colour (RGB)"]
+    },
+
+    "segmentation": {
+        "path": "masks/{id}.npy",
+        "mask_encoding": "integer",
+        "score": "f1",
+
+        "mask_area": [0, 1024, 512, 1536]
+    }
+}
