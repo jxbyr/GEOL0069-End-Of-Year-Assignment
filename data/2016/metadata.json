@@ -1,0 +1,11 @@
+{
+    "spacecraft_id": "Sentinel-2",
+    "scene_id": "aral-sea-2016",
+    "year": 2016,
+    "location": [59.0, 45.0],
+    "crs": "EPSG:32640",
+    "resolution_m": 10.0,
+    "bands": ["B02", "B03", "B04", "B08", "B11"],
+    "image_shape": [1609, 1766],
+    "notes": "Aral Sea region. NDWI > 0.05 = Water, NDWI < -0.05 = Land."
+}
