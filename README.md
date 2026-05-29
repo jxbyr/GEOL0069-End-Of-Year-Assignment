@@ -1,3 +1,5 @@
+![banner](figures/drawdown_with_ndwi_baseline.png)
+
 # Aral Sea Water/Land Classification and Drawdown Analysis
 ### GEOL0069 — Artificial Intelligence for Earth Observation | UCL 2025/26
 
