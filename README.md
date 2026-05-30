@@ -253,7 +253,7 @@ A 7.5-minute walkthrough covering the scientific background, data pipeline, all 
 
 ## 9. References and Acknowledgements
 
-Special thanks to **Dr Michel Tsamados**, **Weibin Chen**, and **Connor Nelson** for the GEOL0069 course materials and teaching that formed the foundation of this work.
+Special thanks to **Dr Michel Tsamados** and **Weibin Chen** for the GEOL0069 course materials and teaching that formed the foundation of this work.
 
 ### Reference List
 
