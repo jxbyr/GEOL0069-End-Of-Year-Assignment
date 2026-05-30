@@ -172,14 +172,38 @@ The three unsupervised methods and the NDWI spectral baseline converge on a cons
 
 ### 6.2 Classification accuracy
 
-Models are evaluated on the spatially independent test crop — a geographically distinct region from the training crop — to give an honest assessment of spatial generalisation.
+Models are evaluated on the spatially independent test crop — a geographically
+distinct region from the training crop — providing a rigorous assessment of
+spatial generalisation rather than a simple random pixel-level split.
 
-| Model | Overall Accuracy | Cohen's Kappa | F1 Water | F1 Land |
-|-------|-----------------|--------------|---------|---------|
-| CNN | 61.4% | 0.457 | 0.688 | 0.760 |
-| Random Forest | 61.1% | 0.525 | 0.725 | 0.791 |
+| Model | Overall Accuracy | Precision (Water) | Recall (Water) | F1 Water | F1 Land |
+|-------|-----------------|------------------|---------------|---------|---------|
+| CNN | 61.4% | 0.60 | 0.69 | 0.64 | 0.58 |
+| Random Forest | 61.1% | 0.59 | 0.73 | 0.65 | 0.56 |
 
-**Note on unsupervised evaluation:** Unsupervised methods are evaluated against the NDWI > 0 spectral baseline rather than independent human labels, and therefore achieve much higher apparent scores (Kappa 0.837–0.967). These scores are not directly comparable to the supervised figures above, which use a harder independent reference. The supervised and unsupervised evaluation regimes are intentionally different and the distinction is discussed in notebook 06.
+**Interpreting precision and recall:**
+- **Precision** (Water): of all pixels the model predicted as water, what fraction truly was water. CNN 0.60 and RF 0.59 indicate both models produce meaningful numbers of false positive water predictions — consistent with the known tendency to over-classify exposed lakebed as water in spatially unseen regions.
+- **Recall** (Water): of all true water pixels, what fraction the model correctly identified. RF recall of 0.73 is notably higher than its precision, meaning the RF is better at finding water than it is at being certain when it says "water."
+
+The drop from approximately 74% within-crop validation accuracy to 61% on the
+spatially independent test crop is consistent with mild spatial overfitting —
+the models learned spectral patterns specific to the training region that do not
+fully transfer to a geographically disjoint area. This is the expected behaviour
+of locally-trained supervised classifiers applied to novel spatial domains,
+and is a well-documented challenge in EO machine learning.
+
+Cross-validation was not performed due to computational constraints on
+CPU-only Colab infrastructure. The spatially independent test crop provides
+a more geographically rigorous alternative to k-fold cross-validation for
+this application, directly assessing the models' ability to generalise across
+space rather than across random pixel subsets.
+
+**Note on unsupervised evaluation:** Unsupervised methods are evaluated against
+the NDWI > 0 spectral baseline rather than independent human labels, and
+therefore achieve much higher apparent Kappa scores (0.837-0.967). These
+are not directly comparable to the supervised figures above, which use a
+harder independent reference. The dual evaluation framework is discussed
+in detail in notebook 06.
 
 ### 6.3 Key figures
 
