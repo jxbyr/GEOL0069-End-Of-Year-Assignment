@@ -278,7 +278,7 @@ Special thanks to **Dr Michel Tsamados**, **Weibin Chen**, and **Connor Nelson**
 ## 10. Contact
 
 **James Byrne**  
-BSc Economics, University College London  
+BSc Earth Sciences, University College London  
 GEOL0069 — Artificial Intelligence for Earth Observation  
 james.byrne.23@ucl.ac.uk
 
