@@ -3,7 +3,7 @@
 # Aral Sea Water/Land Classification and Drawdown Analysis
 ### GEOL0069 — Artificial Intelligence for Earth Observation | UCL 2025/26
 
-> Quantifying the ongoing degradation of the Aral Sea using supervised and unsupervised machine learning applied to multi-temporal Sentinel-2 imagery across three epochs: 2016, 2022, and 2026.
+> Quantifying the ongoing degradation of the Aral Sea using supervised and unsupervised machine learning applied to multi-temporal Sentinel-2 imagery across three time periods: 2016, 2022, and 2026.
 
 ---
 
